@@ -10,7 +10,7 @@ if(isset($_POST['submit'])){
     $addUsers->setPassword($_POST['password']);
     $addUsers->addNewUser();
     echo "<script>
-    alert('New Product Is Added✅!');
+    alert('New User Is Added✅!');
     document.location='../views/user.php'</script>";
 }
 ?>
