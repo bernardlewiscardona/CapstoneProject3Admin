@@ -10,13 +10,17 @@
     <title>Admin Dashboard</title>
 </head>
 <body id="body-pd">
+<?php
+    require_once("./model/user.class.php");
+    $recentBook = new book();
+    $recent = $recentBook->getRecentBook();
+    ?>
     <header class="header" id="header">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
         <div class="d-flex flex-end gap-3">
         <div class="header_img"> <img src="https://www.w3schools.com/howto/img_avatar.png" alt=""></div>
         <h5 class="align-self-center"> Hi, Admin</h5>
         </div>
-        
     </header>
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
@@ -79,31 +83,28 @@
                     <table class="table">
                         <thead>
                             <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Full Name of Rentee</th>
+                            <th scope="col">Plate Number</th>
+                            <th scope="col">Car Description</th>
+                            <th scope="col">Plan</th>
+                            <th scope="col">Full Parking Owner</th>
                             </tr>
                         </thead>
                         <tbody>
+                        <?php if($recent == null){
+                        echo '<script>alert("No Records")</script>';                   
+                        } else{?>
+                        <?php foreach($recent as $latest){?>
                             <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
+                            <th scope="row"><?= $latest['BookID']?></th>
+                            <td><?= $latest['userLastName']?> <?= $latest['userFirstname']?></td>
                             <td>Otto</td>
                             <td>@mdo</td>
                             </tr>
-                            <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                            </tr>
-                            <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                            </tr>
+                            
                         </tbody>
+                        <?php }}?>
                     </table>
                 </div>
         </div>

@@ -60,39 +60,38 @@ include("../controller/updateuser.php");
             <div class="modal-body">
                 <form method="POST">
                 <!-- Name input -->
-                <div class="form-outline my-4">
-                    <input type="text"  class="form-control" name="lastname" placeholder="Enter Your Last Name"/>
-                    <label class="form-label" for="form4Example1">LastName</label>
-                </div>
+                        <div class="form-outline my-4">
+                            <input type="text"  class="form-control" name="lastname" placeholder="Enter Your Last Name"/>
+                            <label class="form-label" for="form4Example1">LastName</label>
+                        </div>
 
-                <div class="form-outline mb-4">
-                    <input type="text" class="form-control" name="firstname" placeholder="Enter Your Last Name"/>
-                    <label class="form-label" for="form4Example1">Firstname</label>
-                </div>
-                <!-- Email input -->
-                <div class="form-outline mb-4">
-                    <input type="email" class="form-control" name="email" placeholder="Enter Your Email Address"/>
-                    <label class="form-label" for="form4Example2">Email address</label>
-                </div>
-                <!-- Message input -->
-                <div class="form-outline mb-4">
-                    <input type="text" class="form-control" name="contactNumber" placeholder="Enter Your Contact Number"/>
-                    <label class="form-label" for="form4Example2">Contact Number</label>
-                </div>
-                <div class="form-outline mb-4">
-                    <input type="text" class="form-control" name="username" placeholder="Enter Your Username"/>
-                    <label class="form-label" for="form4Example2">Username</label>
-                </div>
-                <div class="form-outline mb-4">
-                    <input type="text" class="form-control" name="password" placeholder="Enter Your Password"/>
-                    <label class="form-label" for="form4Example2">Password</label>
-                </div>
-    
-            </div>
-            <div class="modal-footer">
-            <button type="submit" class="btn btn-primary btn-block mb-4" value="submit" name="submit">Add User</button>
-            </div>
-            </form>
+                        <div class="form-outline mb-4">
+                            <input type="text" class="form-control" name="firstname" placeholder="Enter Your Last Name"/>
+                            <label class="form-label" for="form4Example1">Firstname</label>
+                        </div>
+                        <!-- Email input -->
+                        <div class="form-outline mb-4">
+                            <input type="email" class="form-control" name="email" placeholder="Enter Your Email Address"/>
+                            <label class="form-label" for="form4Example2">Email address</label>
+                        </div>
+                        <!-- Message input -->
+                        <div class="form-outline mb-4">
+                            <input type="text" class="form-control" name="contactNumber" placeholder="Enter Your Contact Number"/>
+                            <label class="form-label" for="form4Example2">Contact Number</label>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <input type="text" class="form-control" name="username" placeholder="Enter Your Username"/>
+                            <label class="form-label" for="form4Example2">Username</label>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <input type="text" class="form-control" name="password" placeholder="Enter Your Password"/>
+                            <label class="form-label" for="form4Example2">Password</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-block mb-4" value="submit" name="submit">Add User</button>
+                    </div>
+                </form>
         </div>
         </div>
         </div>

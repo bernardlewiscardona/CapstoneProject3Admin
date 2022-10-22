@@ -9,6 +9,10 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Schedules</title>
 </head>
+<?php
+include("../model/user.class.php");
+include('../controller/viewschedule.php');
+?>
 <body id="body-pd">
     <header class="header" id="header">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
@@ -44,21 +48,21 @@
                     style="width: 55px; height: 55px"
                     /> </a>
                 <div class="ms-3">
-                    <p class="fw-bold mb-1 fs-3">Kate Hunington</p>
-                    <p class="text-muted mb-0">Plate number</p>
+                    <p class="fw-bold mb-1 fs-3"><?= $val['userFirstname']?> <?= $val['userLastName']?></p>
+                    <p class="text-muted mb-0"><?= $val['PlateNumber']?></p>
                 </div>
                 </div>
             <div class="d-flex flex-wrap justify-content-between align-content-center gap-5">
-                <div class="border-end pe-3">
-                    <h3>Jan 21,2020</h3>
-                    <p class="text-muted">Start Date</p>
+                <div class=" pe-3">
+                    <h3></h3>
+                    <p class="text-muted"></p>
                 </div>
-                <div class="border-end pe-3">
-                    <h3>Jan 21,2020</h3>
-                    <p class="text-muted">End Date</p>
+                <div class=" pe-3">
+                    <h3></h3>
+                    <p class="text-muted"></p>
                 </div>
                 <div>
-                    <h3>Jan 21,2020</h3>
+                    <h3>500 PHP</h3>
                     <p class="text-muted">Amount Payable</p>
                 </div>
             </div>
@@ -73,37 +77,37 @@
                     <table>
                         <tr class="border-bottom">
                             <td class="col-5 text-muted"><h6>FirstName:</h6></td>
-                            <td class="col-5 fw-semibold text-end fs-4">Ronald</td>
+                            <td class="col-5 fw-semibold text-end fs-4"><?= $val['userFirstname']?></td>
                         </tr>
                         <tr class="border-bottom">
                             <td class="col-5 text-muted"><h6>Contact Number:</h6></td>
-                            <td class="col-5 fw-semibold text-end fs-4">091234567</td>
+                            <td class="col-5 fw-semibold text-end fs-4"><?= $val['ContactNumber']?></td>
                         </tr>
                         <tr class="border-bottom">
                             <td class="col-5 text-muted"><h6>Email:</h6></td>
-                            <td class="col-5 fw-semibold text-end fs-4">1234@gmail.com</td>
+                            <td class="col-5 fw-semibold text-end fs-4"><?= $val['userEmail']?></td>
                         </tr>
                         <tr class="border-bottom">
-                            <td class="col-5 text-muted"><h6>Description:</h6></td>
-                            <td class="col-3 fw-semibold text-end fs-4">Blue Car</td>
+                            <td class="col-5 text-muted"><h6>Car Description:</h6></td>
+                            <td class="col-3 fw-semibold text-end fs-4"><?= $val['Description']?></td>
                         </tr>
                     </table>
                     <table>
                         <tr class="border-bottom">
                             <td class="col-5 text-muted"><h6>LastName:</h6></td>
-                            <td class="col-5 fw-semibold text-end fs-4">Ganza</td>
+                            <td class="col-5 fw-semibold text-end fs-4"><?= $val['userLastName']?></td>
                         </tr>
                         <tr class="border-bottom">
                             <td class="col-5 text-muted"><h6>Plate Number:</h6></td>
-                            <td class="col-5 fw-semibold text-end fs-4">NBC 1234</td>
+                            <td class="col-5 fw-semibold text-end fs-4"><?= $val['PlateNumber']?></td>
                         </tr>
                         <tr class="border-bottom">
                             <td class="col-5 text-muted"><h6>Plan:</h6></td>
-                            <td class="col-5 fw-semibold text-end fs-4">3 Months</td>
+                            <td class="col-5 fw-semibold text-end fs-4"><?= $val['Plan']?> Month/s</td>
                         </tr>
                         <tr class="border-bottom">
                             <td class="col-5 text-muted"><h6>Payment:</h6></td>
-                            <td class="col-5 fw-semibold text-end fs-4">Cash</td>
+                            <td class="col-5 fw-semibold text-end fs-4"><?= $val['PaymentMethod']?></td>
                         </tr>
                     </table>
                 </div>
@@ -114,19 +118,16 @@
                     <h3 class="text-center"><i class='bx bxs-parking text-primary'></i>Parking Space</h3>
                     <div class="d-flex justify-content-around align-items-center p-3 gap-3">
                         <div class="p-3 bg-light">
-                            <h6 class="text-muted">Section</h6>
-                            <h6>C</h6>
-                        </div>
-                        <div class="p-3 bg-light">
-                            <h6 class="text-muted">Row</h6>
-                            <h6>22</h6>
-                        </div>
-                        <div class="p-3 bg-light">
-                            <h6 class="text-muted">Space</h6>
-                            <h6>B</h6>
+                            <h6 class="text-muted">Parking Slot Code:</h6>
+                            <h6 class="text-center"><?= $val['Slot']?></h6>
                         </div>
                     </div>
-                    <button class="btn btn-outline-primary col-12 fs-5">Reassign</button>
+                    <div class="p-3 text-center">
+                            <h6 class="text-muted">Parking Owner Name: </h6>
+                            <h6 class="text-center"><?= $val['clientFirstName']?> <?= $val['clientLastName']?></h6>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>

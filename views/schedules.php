@@ -9,6 +9,11 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Schedules</title>
 </head>
+<?php
+    require_once("../model/user.class.php");
+    $allBooks = new book();
+    $Books =  $allBooks ->getAllBooks();
+    ?>
 <body id="body-pd">
     <header class="header" id="header">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
@@ -37,49 +42,107 @@
     <section class="main-title p-5">
         <div class="d-flex justify-content-between align-content-center gap-3">
             <h2 class="">All Book Schedules</h2>
-            <button class="btn btn-primary"><i class="bx bx-plus-circle me-2" ></i>Book Parking</button>
+            <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bx bx-plus-circle me-2" ></i>Book Parking</button> -->
+            <!-- Button trigger modal -->
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Book Parking</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST">
+                <!-- Name input -->
+                        <div class="form-outline my-4">
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Select Current User</option>
+                            <option value="">One</option>
+                        </select>
+                        <label class="form-label" for="form4Example1">Registered User</label>
+                        </div>
+
+                        <div class="form-outline my-4">
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Select Current Parking Owner</option>
+                            <option value="">One</option>
+                        </select>
+                        <label class="form-label" for="form4Example1">Registered Parking Owner</label>
+                        </div>
+                        <!-- Email input -->
+                        <div class="form-outline mb-4">
+                            <input type="email" class="form-control" name="email" placeholder="Enter Your Email Address"/>
+                            <label class="form-label" for="form4Example2">Email address</label>
+                        </div>
+                        <!-- Message input -->
+                        <div class="form-outline mb-4">
+                            <input type="text" class="form-control" name="contactNumber" placeholder="Enter Your Contact Number"/>
+                            <label class="form-label" for="form4Example2">Contact Number</label>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <input type="text" class="form-control" name="username" placeholder="Enter Your Username"/>
+                            <label class="form-label" for="form4Example2">Username</label>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <input type="text" class="form-control" name="password" placeholder="Enter Your Password"/>
+                            <label class="form-label" for="form4Example2">Password</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-block mb-4" value="submit" name="submit">Add User</button>
+                    </div>
+                </form>
+        </div>
+        </div>
+        </div>
         </div>
         <div class="">
                 <table class="table align-middle mb-0">
                 <thead class="">
                     <tr>
                     <th>Book ID</th>
-                    <th>Status</th>
-                    <th>Car Description</th>
-                    <th>Plan</th>
+                    <th>Full Name</th>
+                    <th>Car Information</th>
+                    <th>Chosen Plan</th>
                     <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
+                <?php if($Books === null){
+                    echo '<script>alert("No Records")</script>';                   
+                } else{?>
+                <?php foreach($Books as $book){?>
                     <tr>
                     <td>
-                        <div class="d-flex align-items-center">
-                        <a href="view.php"><img
-                            src="https://mdbootstrap.com/img/new/avatars/7.jpg"
+                    <?= $book['BookID']?>
+                    </td>
+                    <td>
+                    <div class="d-flex align-items-center">
+                        <a href="view.php?id=<?= $book['BookID']?>"><img
+                            src="https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png"
                             class="rounded-circle"
                             alt=""
                             style="width: 45px; height: 45px"
                             /> </a>
                         <div class="ms-3">
-                            <p class="fw-bold mb-1">Kate Hunington</p>
-                            <p class="text-muted mb-0">kate.hunington@gmail.com</p>
+                            <p class="fw-bold mb-1"><?= $book['userFirstname']?> <?= $book['userLastName']?></p>
+                            <p class="text-muted mb-0"><?= $book['userEmail']?></p>
                         </div>
                         </div>
                     </td>
                     <td>
-                        <p class="fw-normal mb-1">Designer</p>
-                        <p class="text-muted mb-0">UI/UX</p>
+                        <p class="fw-normal mb-1"><?= $book['PlateNumber']?></p>
+                        <p class="text-muted mb-0"><?= $book['Description']?></p>
                     </td>
-                    <td>
-                        <span class="badge badge-warning rounded-pill d-inline">Awaiting</span>
-                    </td>
-                    <td>Senior</td>
-                    <td>
-                        <a href="#" class="text-success"><i class='bx bxs-edit bx-md'></i></a>
-                        <a href="#" class="text-danger"><i class='bx bxs-trash-alt bx-md'></i></a>
+                    <td><?= $book['Plan']?> Month/s</td>
+                    <td>        
+                        <a href="../controller/deletebook.php?id=<?= $book['BookID']?>" class="text-danger"><i class='bx bxs-trash-alt bx-md'></i></a>
                     </td>
                     </tr>
                 </tbody>
+                <?php }}?>
                 </table>
             <div class="card-body"> 
             </div>
