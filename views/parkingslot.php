@@ -44,7 +44,7 @@ include("../controller/updateslot.php");
     </div>
     <!--Container Main start-->
     <section class="main-title p-5">
-        <div class="d-flex justify-content-between align-content-center gap-3">
+        <div class="d-flex justify-content-between gap-3">
             <h2 class="">Parking Slots</h2>
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bx bx-plus-circle me-2" ></i>Add Parking Slot</button>
             <!-- Button trigger modal -->
@@ -70,15 +70,23 @@ include("../controller/updateslot.php");
                 </div>
             </div>
             <div class="modal-footer">
-            <button type="submit" class="btn btn-primary btn-block mb-4" value="submit" name="submit">Add Payment</button>
+            <button type="submit" class="btn btn-primary btn-block mb-4" value="submit" name="submit">Add Parking Slot</button>
             </div>
             </form>
         </div>
         </div>
         </div>
         </div>
+        
         <div class="">
-                <table class="table align-middle mb-0">
+            <div class="input-group my-3">
+            <div class="form-outline">
+                <input id="myInput" type="search" id="form1" class="form-control" placeholder="Search Slot " onkeyup="myFunction()" />
+            </div>
+            
+            </button>
+            </div>
+                <table class="table align-middle mb-0" id="myTable">
                 <thead class="">
                     <tr>
                     <th>Slot ID</th>
@@ -163,4 +171,5 @@ include("../controller/updateslot.php");
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="../public/js/searchslot.js"></script>
 </html>
