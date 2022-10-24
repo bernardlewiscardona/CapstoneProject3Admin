@@ -14,6 +14,16 @@
     require_once("./model/user.class.php");
     $recentBook = new book();
     $recent = $recentBook->getRecentBook();
+    $totalbook = $recentBook->getTotalBook();
+
+    $totalclient = new client();
+    $client = $totalclient->getTotalClient();
+
+    $totaluser = new users();
+    $user = $totaluser->getTotalUsers();
+
+    $totalslot = new parkingslot();
+    $slot = $totalslot ->getTotalSlots();
     ?>
     <header class="header" id="header">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
@@ -31,7 +41,7 @@
                     <a href="./views/schedules.php" class="nav_link text-decoration-none"> <i class='bx bx-calendar-check nav_icon' ></i> <span class="nav_name">All Schedule</span> </a> 
                     <a href="./views/parkingowner.php" class="nav_link text-decoration-none"> <i class='bx bxs-parking nav_icon'></i><span class="nav_name">Parking Owners</span> </a> 
                     <a href="./views/payment.php" class="nav_link text-decoration-none"> <i class='bx bx-money nav_icon' ></i> <span class="nav_name">Payment Methods</span> </a> 
-                    
+                    <a href="./views/parkingslot.php" class="nav_link text-decoration-none"> <i class='bx bxs-car-garage nav_icon'></i> <span class="nav_name">Parking Slot</span> </a>
             </div>
             </div> 
             <a href="#" class="nav_link text-decoration-none"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">Sign Out</span> </a>
@@ -46,26 +56,37 @@
     <section class="p-5">
         <div class="d-flex justify-content-evenly">
             <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <div class="card-body"> 
+                    <h5 class="card-title">Total Books:</h5>
+                    <?php foreach($totalbook as $total){?>
+                    <p class="card-text h1 text-center mt-4"><?= $total['totalbook']?></p>
+                    <?php }?>
                 </div>
             </div>
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <h5 class="card-title">Total Parking Owner/s</h5>
+                    <?php foreach($client as $totalclients){?>
+                    <p class="card-text h1 text-center mt-4"><?= $totalclients['totalclient']?></p>
+                    <?php }?>
+                    
                     
                 </div>
             </div>
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    
+                    <h5 class="card-title">Total Users/Rentee</h5>
+                    <?php foreach($user as $totalusers){?>
+                    <p class="card-text h1 text-center mt-4"><?= $totalusers['totaluser']?></p>
+                    <?php }?>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Available Parking Slots</h5>
+                    <?php foreach($slot as $totalslots){?>
+                    <p class="card-text h1 text-center mt-4"><?= $totalslots['totalslot']?></p>
+                    <?php }?>
                 </div>
             </div>
         </div>
@@ -80,10 +101,10 @@
         </div>
         <div class="card">
                 <div class="card-body">
-                    <table class="table">
+                    <table class="table" id='myTable'>
                         <thead>
                             <tr>
-                            <th scope="col">ID</th>
+                            <th scope="col">Book ID</th>
                             <th scope="col">Full Name of Rentee</th>
                             <th scope="col">Plate Number</th>
                             <th scope="col">Car Description</th>
@@ -99,8 +120,10 @@
                             <tr>
                             <th scope="row"><?= $latest['BookID']?></th>
                             <td><?= $latest['userLastName']?> <?= $latest['userFirstname']?></td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                            <td><?= $latest['PlateNumber']?></td>
+                            <td><?= $latest['Description']?></td>
+                            <td><?= $latest['Plan']?> Month/s</td>
+                            <td><?= $latest['clientLastname']?> <?= $latest['clientFirstname']?></td>
                             </tr>
                             
                         </tbody>
@@ -114,4 +137,5 @@
 <script src="./public/js/index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </html>

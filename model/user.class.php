@@ -112,6 +112,16 @@ class users{
             return $error->getMessage();
         }
     }
+    public function getTotalUsers(){
+        try{
+            $results = $this->dbCon->prepare("SELECT COUNT(users.User_ID) as totaluser FROM users");
+            $results->execute();
+            return $results->fetchAll();
+            }
+            catch (Exception $error){
+                return $error->getMessage();
+            }
+    }
 }
 class payment{
     private $payment_id;
@@ -325,6 +335,16 @@ class client{
             return $error->getMessage();
         }
     }
+    public function getTotalClient(){
+        try{
+            $results = $this->dbCon->prepare("SELECT COUNT(client.Client_ID) as totalclient FROM client");
+            $results->execute();
+            return $results->fetchAll();
+            }
+            catch (Exception $error){
+                return $error->getMessage();
+            }
+    }
 }
 class book{
     private $booking_id;
@@ -480,10 +500,10 @@ class book{
     }
     public function getRecentBook(){
         try{
-            $results = $this->dbCon->prepare("SELECT booking.Booking_ID as BookID,users.Lastname as userLastName, users.Firstname as userFirstname,users.Email as userEmail, booking.PlateNumber as PlateNumber, booking.DescriptionCar as Description, booking.Plan as Plan
+            $results = $this->dbCon->prepare("SELECT booking.Booking_ID as BookID,users.Lastname as userLastName, users.Firstname as userFirstname,users.Email as userEmail, booking.PlateNumber as PlateNumber, client.Lastname as clientLastname, client.Firstname as clientFirstname, booking.DescriptionCar as Description, booking.Plan as Plan
             FROM ((booking
             INNER JOIN users ON booking.User_ID = users.User_ID)
-            INNER JOIN client ON booking.Client_ID = client.Client_ID)");
+            INNER JOIN client ON booking.Client_ID = client.Client_ID) ORDER BY booking.Booking_ID DESC LIMIT 5");
             $results->execute();
             return $results->fetchAll();
             }
@@ -491,8 +511,120 @@ class book{
                 return $error->getMessage();
             }
     }
-
+    public function getTotalBook(){
+        try{
+            $results = $this->dbCon->prepare("SELECT COUNT(booking.Booking_ID) as totalbook FROM booking");
+            $results->execute();
+            return $results->fetchAll();
+            }
+            catch (Exception $error){
+                return $error->getMessage();
+            }
+    }
+    
 }
+class parkingslot{
+    private $slot_id;
+    private $slot_code;
+    private $slotname;
+    private $status;
+    protected $dbCon;
+
+    public function __construct($slot_id = 0, $slot_code= '', $slotname= '',$status='')
+    {
+        $this-> slot_id = $slot_id;
+        $this-> slot_code = $slot_code;
+        $this-> slotname = $slotname;
+        $this-> status = $status;
+
+        $this->dbCon = new PDO(
+            DB_TYPE.
+            ":host=".DB_HOST.
+            ";dbname=".DB_NAME,
+            DB_USER,DB_PWD,[PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]
+        );
+    }
+    public function setSlotID($slot_id){
+        $this-> slot_id= $slot_id;
+    }
+    public function getPaymentID(){
+        return $this-> slot_id;
+    }
+    public function setSlotCode($slot_code){
+        $this-> slot_code = $slot_code;
+    }
+    public function getSlotCode(){
+        return $this-> slot_code;
+    }
+    public function setSlotName($slotname){
+        $this-> slotname= $slotname;
+    }
+    public function getSlotName(){
+        return $this-> slotname;
+    }
+    public function setSlotStatus($status){
+        $this-> status= $status;
+    }
+    public function getSlotStatus(){
+        return $this-> status;
+    }
+    public function addNewSlot(){
+        try{
+        $results = $this->dbCon->prepare("INSERT INTO parkingslot (Slot_Code,Name,Status) VALUES (?,?,?)");
+        $results->execute([$this->slot_code,$this->slotname,$this->status]);
+        }
+        catch (Exception $error){
+            return $error->getMessage();
+        }
+    }
+    public function getAllParkingSlot(){
+        try{
+            $results = $this->dbCon->prepare("SELECT parkingslot.Slot_ID as Slot_ID, parkingslot.Slot_Code as Slot_Code, parkingslot.Status as Status,  client.Lastname as clientLastname, client.Firstname as clientFirstname FROM parkingslot LEFT JOIN client ON parkingslot.Slot_ID = client.Client_ID");
+            $results->execute();
+            return $results->fetchAll();
+            }
+            catch (Exception $error){
+                return $error->getMessage();
+            }
+    }
+    public function getSlotByID(){
+        try {
+            $results= $this->dbCon->prepare("SELECT * FROM payment WHERE Payment_ID=?");
+            $results->execute([$this->payment_id]);
+            return $results->fetchAll();
+        } catch (Exception $error) {
+            return $error->getMessage();
+        }
+    }
+    public function deleteSlot(){
+        try {
+            $results = $this->dbCon->prepare("DELETE FROM parkingslot WHERE Slot_ID=?");
+            $results->execute([$this->slot_id]);
+            return $results->fetchAll();
+        } catch (Exception $error) {
+            return $error->getMessage();
+        }
+    }
+    public function updateSlot(){
+        try {
+            $results = $this->dbCon->prepare("UPDATE parkingslot SET Slot_Code=?,Status=? WHERE Slot_ID =?");
+            $results->execute([$this->slot_code,$this->status,$this->slot_id]);
+        } catch (Exception $error) {
+            return $error->getMessage();
+        }
+    }
+    public function getTotalSlots(){
+        try{
+            $results = $this->dbCon->prepare("SELECT COUNT(parkingslot.Slot_ID) as totalslot FROM parkingslot WHERE Status = '' OR Status = NULL ");
+            $results->execute();
+            return $results->fetchAll();
+            }
+            catch (Exception $error){
+                return $error->getMessage();
+            }
+    }
+}
+
 ?>
 
 

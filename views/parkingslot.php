@@ -11,12 +11,12 @@
 </head>
 <?php
     require_once("../model/user.class.php");
-    $allPayment = new payment();
-    $Payment = $allPayment->getAllPayment();
+    $allParkingSlot = new parkingslot();
+    $parkingSlot = $allParkingSlot->getAllParkingSlot();
     ?>
 <?php
-include("../controller/addpayment.php");
-include("../controller/updatepayment.php");
+include("../controller/addnewslot.php");
+include("../controller/updateslot.php");
 ?>
 <body id="body-pd">
     <header class="header" id="header">
@@ -35,8 +35,8 @@ include("../controller/updatepayment.php");
                     <a href="./user.php" class="nav_link  text-decoration-none"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Users</span> </a> 
                     <a href="./schedules.php" class="nav_link text  text-decoration-none"> <i class='bx bx-calendar-check nav_icon' ></i> <span class="nav_name">All Schedule</span> </a> 
                     <a href="./parkingowner.php" class="nav_link text-decoration-none"> <i class='bx bxs-parking nav_icon'></i><span class="nav_name">Parking Owners</span> </a> 
-                    <a href="./payment.php" class="nav_link text-decoration-none active"> <i class='bx bx-money nav_icon' ></i> <span class="nav_name">Payment Methods</span> </a> 
-                    <a href="./parkingslot.php" class="nav_link text-decoration-none"> <i class='bx bxs-car-garage nav_icon'></i> <span class="nav_name">Parking Slot</span> </a>
+                    <a href="./payment.php" class="nav_link text-decoration-none "> <i class='bx bx-money nav_icon' ></i> <span class="nav_name">Payment Methods</span> </a> 
+                    <a href="./parkingslot.php" class="nav_link text-decoration-none active"> <i class='bx bxs-car-garage nav_icon'></i> <span class="nav_name">Parking Slot</span> </a>
             </div>
             </div> 
             <a href="#" class="nav_link text-decoration-none"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">Sign Out</span> </a>
@@ -45,8 +45,8 @@ include("../controller/updatepayment.php");
     <!--Container Main start-->
     <section class="main-title p-5">
         <div class="d-flex justify-content-between align-content-center gap-3">
-            <h2 class="">Payment Methods</h2>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bx bx-plus-circle me-2" ></i>Add Payment</button>
+            <h2 class="">Parking Slots</h2>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bx bx-plus-circle me-2" ></i>Add Parking Slot</button>
             <!-- Button trigger modal -->
 
         <!-- Modal -->
@@ -54,26 +54,23 @@ include("../controller/updatepayment.php");
         <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Payment</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Parking Slot</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form method="POST">
                 <!-- Name input -->
                 <div class="form-outline my-4">
-                    <input type="text"  class="form-control" name="payment_method" placeholder="Enter New Payment Method"/>
-                    <label class="form-label" for="form4Example1">Payment Method</label>
+                    <input type="text"  class="form-control" name="slotcode" placeholder="Enter New Slot Code"/>
+                    <label class="form-label" for="form4Example1">Slot Code</label>
                 </div>
                 <div class="form-outline my-4">
-                    <input type="date"  class="form-control" name="createdAT" placeholder="Enter Date Created"/>
-                    <label class="form-label" for="form4Example1">Date Created</label>
+                    <input type="hidden" name="name" value="Admin">
+                    <input type="hidden" name="status" value="">
                 </div>
-
-                
-    
             </div>
             <div class="modal-footer">
-            <button type="submit" class="btn btn-primary btn-block mb-4" value="submitpayment" name="submitpayment">Add Payment</button>
+            <button type="submit" class="btn btn-primary btn-block mb-4" value="submit" name="submit">Add Payment</button>
             </div>
             </form>
         </div>
@@ -84,59 +81,73 @@ include("../controller/updatepayment.php");
                 <table class="table align-middle mb-0">
                 <thead class="">
                     <tr>
-                    <th>Payment ID</th>
-                    <th>Type of Payment</th>
-                    <th>Created At</th>
+                    <th>Slot ID</th>
+                    <th>Slot Code</th>
+                    <th>Parking Owner</th>
+                    <th>Status</th>
                     <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                <?php if($Payment === null){
+                <?php if($parkingSlot === null){
                     echo '<script>alert("No Records")</script>';                   
                 } else{?>
-                <?php foreach($Payment as $payment){?>
+                <?php foreach($parkingSlot as $slot){?>
                     <tr>
                     <td>
-                    <?= $payment['Payment_ID']?>
+                    <?= $slot['Slot_ID']?>
                     </td>
                     <td>
-                    <?= $payment['Payment_Method']?>
+                    <?= $slot['Slot_Code']?>
                     </td>
                     <td>
-                    <?= $payment['Created_At']?>
+                    <?= $slot['clientLastname']?> <?= $slot['clientFirstname']?>
                     </td>
+                    <?php if($slot['Status'] == ' ' || $slot['Status'] == NULL ){?> 
+                        <td class="text-success"> Open </td>
+                    <?php }else{?>
+                        <td class="text-danger"> <?= $slot['Status']?> </td>
+                    <?php }?>
                     <td>
-                        <a href="" class="text-success" data-bs-toggle="modal" data-bs-target="#UpdatePaymentModal<?= $payment['Payment_ID']?>"><i class='bx bxs-edit bx-md'></i></a>
+                        <a href="" class="text-success" data-bs-toggle="modal" data-bs-target="#UpdatePaymentModal<?= $slot['Slot_ID']?>"><i class='bx bxs-edit bx-md'></i></a>
                         
                         
-                        <a href="../controller/deletepayment.php?id=<?= $payment['Payment_ID']?>" class="text-danger"><i class='bx bxs-trash-alt bx-md'></i></a>
+                        <a href="../controller/deleteslot.php?id=<?= $slot['Slot_ID']?>" class="text-danger"><i class='bx bxs-trash-alt bx-md'></i></a>
                     </td>
                     </tr>
                 </tbody>
                 <!-- Modal -->
-                <div class="modal fade" id="UpdatePaymentModal<?= $payment['Payment_ID']?>" tabindex="-1" aria-hidden="true">
+                <div class="modal fade" id="UpdatePaymentModal<?= $slot['Slot_ID']?>" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="UpdatePaymentModal">Update Payment ID: <?= $payment['Payment_ID']?></h1>
+                    <h1 class="modal-title fs-5" id="UpdatePaymentModal">Update Slot ID: <?= $slot['Slot_ID']?></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form method="POST">
                         <!-- Name input -->
                         <div class="form-outline my-4">
-                            <input type="hidden"  name="Payment_ID" value="<?= $payment['Payment_ID']?>">
-                            <input type="text"  class="form-control" name="payment_method" value="<?= $payment['Payment_Method']?>"/>
-                            <label class="form-label" for="form4Example1">Payment Method</label>
+                            <input type="hidden"  name="Slot_ID" value="<?= $slot['Slot_ID']?>">
+                            <input type="text"  class="form-control" name="slotcode" value="<?= $slot['Slot_Code']?>"/>
+                            <label class="form-label" for="form4Example1">Slot Code</label>
                         </div>
                         <div class="form-outline my-4">
-                            <input type="date"  class="form-control" name="createdAT" value="<?= $payment['Created_At']?>"/>
+                        <select class="form-select" aria-label="Default select example" name="status">
+                            <?php if($slot['Status'] == 'Closed'){?>
+                            <option selected><?= $slot['Status']?></option>
+                            <option value=" ">Open</option>
+                            <?php }else{?>
+                            <option selected value=" ">Open</option>
+                            <option value="Closed">Closed</option>
+                            <?php }?>
+                        </select>
                             <label class="form-label" for="form4Example1">Enter Date Created</label>
                         </div>
                         <!-- Email input -->
                     </div>
                     <div class="modal-footer">
-                    <button type="submit" class="btn btn-success btn-block mb-4" value="updatePayment" name="updatePayment">Update Payment</button>
+                    <button type="submit" class="btn btn-success btn-block mb-4" value="update" name="update">Update Slot</button>
                     </div>
                     </form>
                     
