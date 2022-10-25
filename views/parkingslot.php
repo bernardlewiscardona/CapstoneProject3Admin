@@ -1,3 +1,15 @@
+<?php
+
+session_start();
+error_reporting(E_ALL ^ E_WARNING);
+if (isset($_SESSION["admin_id"])) {
+    
+
+}
+else{
+    header("Location: views/404.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

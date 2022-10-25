@@ -1,3 +1,23 @@
+<?php
+include ('./model/connection.php');
+session_start();
+error_reporting(E_ALL ^ E_WARNING);
+if (isset($_SESSION["admin_id"])) {
+    
+    $sql = "SELECT * FROM users
+            WHERE User_ID = {$_SESSION["admin_id"]}";
+    $result = $conn->query($sql);
+    $user = $result->fetch_assoc();
+
+    $userID = $user['Admin_ID'];
+    $sqlBooking = "Select * from admin WHERE Admin_ID='$userID'";
+    $queryBooking = $conn->query($sqlBooking);
+    $rowBook = $queryBooking->fetch_assoc();
+}
+else{
+    header("Location: views/404.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +49,7 @@
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
         <div class="d-flex flex-end gap-3">
         <div class="header_img"> <img src="https://www.w3schools.com/howto/img_avatar.png" alt=""></div>
-        <h5 class="align-self-center"> Hi, Admin</h5>
+        <h5 class="align-self-center"> Hi, Admin </h5>
         </div>
     </header>
     <div class="l-navbar" id="nav-bar">
@@ -44,7 +64,7 @@
                     <a href="./views/parkingslot.php" class="nav_link text-decoration-none"> <i class='bx bxs-car-garage nav_icon'></i> <span class="nav_name">Parking Slot</span> </a>
             </div>
             </div> 
-            <a href="#" class="nav_link text-decoration-none"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">Sign Out</span> </a>
+            <a href="./controller/adminlogout.php" class="nav_link text-decoration-none"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">Sign Out</span> </a>
         </nav>
     </div>
     <!--Container Main start-->
